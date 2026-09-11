@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-photo-gallery',
+  appId: 'com.example.ionicphotogallery',
+  appName: 'Ionic Photo Gallery',
   webDir: 'dist'
 };
 
