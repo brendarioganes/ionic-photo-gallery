@@ -1,77 +1,17 @@
 <template>
-  <IonPage>
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Photo Gallery</IonTitle>
-      </IonToolbar>
-    </IonHeader>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>My Photo Gallery</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-    <IonContent :fullscreen="true">
-      <div class="gallery-container">
+    <ion-content class="ion-padding">
+      <CameraComponent @photo-captured="addPhoto" />
 
-        <div class="gallery-title">
-          <span>MY IONIC APP</span>
-          <h1>Photo Gallery</h1>
-          <p>My favorite photos</p>
-        </div>
-
-        <IonGrid>
-          <IonRow>
-
-            <IonCol size="6">
-              <IonCard class="photo-card">
-                <img
-                  src="/myimages/jana2.jpg"
-                  alt="cutie jana"
-                />
-                <IonCardHeader>
-                  <IonCardTitle>Pretty</IonCardTitle>
-                </IonCardHeader>
-              </IonCard>
-            </IonCol>
-
-            <IonCol size="6">
-              <IonCard class="photo-card">
-                <img
-                  src="/myimages/jana3.jpg"
-                  alt="sweet jana"
-                />
-                <IonCardHeader>
-                  <IonCardTitle>Model</IonCardTitle>
-                </IonCardHeader>
-              </IonCard>
-            </IonCol>
-
-            <IonCol size="6">
-              <IonCard class="photo-card">
-                <img
-                  src="/myimages/jana5.jpg"
-                  alt="little jana"
-                />
-                <IonCardHeader>
-                  <IonCardTitle>Cutie</IonCardTitle>
-                </IonCardHeader>
-              </IonCard>
-            </IonCol>
-
-            <IonCol size="6">
-              <IonCard class="photo-card">
-                <img
-                  src="/myimages/jana4.jpg"
-                  alt="big jana"
-                />
-                <IonCardHeader>
-                  <IonCardTitle>Jana@9</IonCardTitle>
-                </IonCardHeader>
-              </IonCard>
-            </IonCol>
-
-          </IonRow>
-        </IonGrid>
-
-      </div>
-    </IonContent>
-  </IonPage>
+      <PhotoGalleryComponent :photos="photos" />
+    </ion-content>
+  </ion-page>
 </template>
 
 <script setup lang="ts">
@@ -81,82 +21,49 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle
-} from '@ionic/vue';
-</script>
+} from "@ionic/vue";
 
+import { ref } from "vue";
+
+import CameraComponent from "@/components/CameraComponent.vue";
+import PhotoGalleryComponent from "@/components/PhotoGalleryComponent.vue";
+
+const photos = ref<string[]>([]);
+
+const addPhoto = (photo: string) => {
+  photos.value.unshift(photo);
+};
+</script>
 <style scoped>
 ion-content {
-  --background: url('/myimages/background.jpg') center / cover no-repeat;
+  --background: #f7f3ff;
 }
 
-
-.gallery-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 24px 16px;
+ion-toolbar {
+  --background: #6c4ab6;
+  --color: white;
 }
 
-.gallery-title {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.gallery-title span {
-  color: #3880ff;
-  font-size: 0.75rem;
+ion-title {
   font-weight: 700;
-  letter-spacing: 2px;
 }
 
-.gallery-title h1 {
-  margin: 5px 0;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #222;
-}
-
-.gallery-title p {
-  margin: 0;
-  color: #666;
-}
-
-ion-grid {
-  padding: 0;
-}
-
-ion-col {
-  padding: 6px;
-}
-
-.photo-card {
-  margin: 0;
+ion-card {
+  --background: white;
   border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-}
-
-.photo-card img {
-  width: 100%;
-  height: 450px;
-  object-fit: cover;
-  display: block;
-}
-
-ion-card-header {
-  padding: 12px;
+  box-shadow: 0 4px 12px rgba(108, 74, 182, 0.15);
 }
 
 ion-card-title {
-  font-size: 1rem;
+  color: #5a3d91;
+  font-weight: 700;
 }
-ion-toolbar {
-  text-align: center;
+
+ion-button {
+  --background: #6c4ab6;
+  --background-hover: #5a3d91;
+  --color: white;
+  --border-radius: 12px;
+  font-weight: 600;
 }
 </style>
